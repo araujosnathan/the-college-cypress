@@ -1,0 +1,9 @@
+name: Tests - Manual Trigger
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-e2e-api-tests:
+    uses: araujosnathan/the-college-cypress/.github/workflows/e2e_tests.yml@main
+    secrets: inherit
