@@ -1,0 +1,47 @@
+name: EE2/API Tests
+
+on:
+  workflow_call:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  testing:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+         lfs: true
+
+      - name: Pull LFS files
+        run: git lfs pull
+
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+         node-version: 20
+
+      - name: Setup Environment TheCollege Store
+        run:  |
+          cd deployment
+          chmod +x deploy.sh
+          ./deploy.sh 
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm run cy:run
+
+    
+
+          
+
+        
+
+        
